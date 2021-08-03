@@ -17,7 +17,8 @@ describe('Bookish application', () => {
   beforeEach(() => {
     const books = [
       { 'name': 'Refactoring', 'id': 1 },
-      { 'name': 'Domain-driven design', 'id': 2 }
+      { 'name': 'Domain-driven design', 'id': 2 },
+      { 'name': 'Building Microservices', 'id': 3 }
     ]
 
     return books.map((item) => {
@@ -42,13 +43,12 @@ describe('Bookish application', () => {
     cy.visit('http://localhost:3000/');
     // We expect there is a container that has the data-test attr of book list
     cy.get('div[data-test="book-list"]').should('exist');
-    // and that this container has several .book-item elements.
-    cy.get('div.book-item').should('have.length', 2);
     // Each book item should have the given titles specified in h2 tags.
     cy.get('div.book-item').should((books) => {
-      expect(books).to.have.length(2);
+      expect(books).to.have.length(3);
+      
       const titles = [...books].map((x) => x.querySelector('h2').innerHTML);
-      expect(titles).to.deep.equal(['Refactoring', 'Domain-driven design']);
+      expect(titles).to.deep.equal(['Refactoring', 'Domain-driven design', 'Building Microservices']);
     })
   });
 });
