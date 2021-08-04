@@ -1,6 +1,13 @@
 import React from 'react';
 import { render } from '@testing-library/react';
 import BookList from './BookList';
+import { MemoryRouter as Router } from 'react-router-dom';
+
+const renderWithRouter = (component) => {
+  return {...render(
+    <Router>{component}</Router>
+  )}
+}
 
 describe('BookList', () => {
   // Test loading state:
@@ -10,13 +17,13 @@ describe('BookList', () => {
     const content = container.querySelector('p');
     // Note: Since we are testing the UI, we are concerned with what
     // is actually displayed on screen.
-    
+    expect(content.innerHTML).toContain('Loading');
   });
 
   // Test error state:
   it('error', () => {
     const props = { error: true }
-    const { container } = render(<BookList { ...props } />);
+    const { container } = render(<BookList {...props} />);
     const content = container.querySelector('p');
     expect(content.innerHTML).toContain('Error');
   });
@@ -30,7 +37,7 @@ describe('BookList', () => {
       ]
     };
 
-    const { container } = render(<BookList { ...props } />);
+    const { container } = renderWithRouter(<BookList {...props} />);
     const titles = [...container.querySelectorAll('h2')].map((x) => x.innerHTML);
     expect(titles).toEqual(['Refactoring', 'Domain-driven design']);
   });

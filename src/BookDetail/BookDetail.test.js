@@ -5,7 +5,7 @@ import BookDetail from './BookDetail'
 describe('Book Detail', () => {
   it('renders title', () => {
     const props = { book: { name: 'Refactoring' }};
-    const { container } = render(<BookDetail { ...props } />);
+    const { container } = render(<BookDetail {...props} />);
     const title = container.querySelector('.book-title');
     expect(title.innerHTML).toEqual(props.book.name);
   });
@@ -16,7 +16,7 @@ describe('Book Detail', () => {
       description: "Martin Fowler's Refactoring defined core ideas and techniques that hundreds of thousands of developers have used to improve their software."
     }};
 
-    const { container } = render(<BookDetail { ...props } />);
+    const { container } = render(<BookDetail {...props} />);
     const description = container.querySelector('p.book-description');
     expect(description.innerHTML).toEqual(props.book.description);
   });
@@ -24,7 +24,7 @@ describe('Book Detail', () => {
   // Test when props has no description field
   it('displays the book name when no description is given', () => {
     const props = { book: { name: 'Refactoring' }}
-    const { container } = render(<BookDetail { ...props } />);
+    const { container } = render(<BookDetail {...props} />);
     const description = container.querySelector('p.book-description');
     expect(description.innerHTML).toEqual(props.book.name);
   });
