@@ -1,16 +1,10 @@
 import React from 'react';
-import { useRemoteService } from './hooks'
+import { useRemoteService } from './hooks';
+import BookDetail from './BookDetail';
 
 function BookDetailContainer({ match }) {
   const { data } = useRemoteService(`http://localhost:8080/books/${match.params.id}`, {});
-  
-  return (
-    <div className='detail'>
-      <h2 className='book-title'>
-        {data.name}
-      </h2>
-    </div>
-  );
+  return (<BookDetail book={data} />);
 }
 
 export default BookDetailContainer;
