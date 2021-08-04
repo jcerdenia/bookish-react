@@ -20,4 +20,28 @@ describe('Book Detail', () => {
     const description = container.querySelector('p.book-description');
     expect(description.innerHTML).toEqual(props.book.description);
   });
+
+  // Test when props has no description field
+  it('displays the book name when no description is given', () => {
+    const props = { book: { name: 'Refactoring' }}
+    const { container } = render(<BookDetail { ...props } />);
+    const description = container.querySelector('p.book-description');
+    expect(description.innerHTML).toEqual(props.book.name);
+  });
+
+  /*
+  it('shows *more* link when description is too long', () => {
+    const props = { book: {
+      name: 'Refactoring',
+      description: 'The book about how to do refactoring ....'
+    }}
+
+    const { container } = render(<BookDetail { ...props } />);
+    const link = container.querySelector('a.show-more');
+    const title = container.querySelector('p.book-description');
+
+    expect(link.innerHTML).toEqual('Show more');
+    expect(title.innerHTML).toEqual('The book about how to do refactoring ....');
+  });
+  */
 });
