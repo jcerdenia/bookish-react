@@ -1,5 +1,5 @@
 import React from 'react';
-import { useRemoteService } from './hooks';
+import { useRemoteService } from '../hooks';
 import BookDetail from './BookDetail';
 
 function BookDetailContainer({ match }) {
