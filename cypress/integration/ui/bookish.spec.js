@@ -46,7 +46,6 @@ describe('Bookish application', () => {
     // Each book item should have the given titles specified in h2 tags.
     cy.get('div.book-item').should((books) => {
       expect(books).to.have.length(3);
-      
       const titles = [...books].map((x) => x.querySelector('h2').innerHTML);
       expect(titles).to.deep.equal(['Refactoring', 'Domain-driven design', 'Building Microservices']);
     });
