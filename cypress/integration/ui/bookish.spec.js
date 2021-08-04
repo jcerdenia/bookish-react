@@ -49,6 +49,16 @@ describe('Bookish application', () => {
       
       const titles = [...books].map((x) => x.querySelector('h2').innerHTML);
       expect(titles).to.deep.equal(['Refactoring', 'Domain-driven design', 'Building Microservices']);
-    })
+    });
+  });
+
+  // Acceptance test for Book Detail view.
+  // Clicking on a book from the book list should take the user to a different page.
+  // The page should contain content specific to each book (title, image, description, etc.)
+  it('Goes to the detail page', () =>{
+    cy.visit('http://localhost:3000/');
+    cy.get('div.book-item').contains('View Details').eq(0).click(); // clicking on item 0
+    cy.url().should('include', '/books/1'); // should take us to URL ending in /books/1
+    cy.get('h2.book-title').contains('Refactoring'); // content should be this
   });
 });

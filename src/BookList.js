@@ -16,6 +16,7 @@ function BookList({ books, loading, error }) {
           return (
             <div className='book-item' key={book.id}>
               <h2 className='title'>{book.name}</h2>
+              <a href={`/books/${book.id}`}>View Details</a>
             </div>
           );
         })
