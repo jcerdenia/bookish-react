@@ -3,12 +3,6 @@ import { render } from '@testing-library/react';
 import BookList from './BookList';
 import { MemoryRouter as Router } from 'react-router-dom';
 
-const renderWithRouter = (component) => {
-  return {...render(
-    <Router>{component}</Router>
-  )}
-}
-
 describe('BookList', () => {
   // Test loading state:
   it('loading', () => {
@@ -42,3 +36,9 @@ describe('BookList', () => {
     expect(titles).toEqual(['Refactoring', 'Domain-driven design']);
   });
 });
+
+const renderWithRouter = (component) => {
+  return {...render(
+    <Router>{component}</Router>
+  )}
+}
