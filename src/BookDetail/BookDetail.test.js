@@ -29,6 +29,8 @@ describe('Book Detail', () => {
     expect(description.innerHTML).toEqual(props.book.name);
   });
 
+  // This test is given in the book, but without the corresponding implementation.
+  // It can easily be done, but I don't like it.
   /*
   it('shows *more* link when description is too long', () => {
     const props = { book: {

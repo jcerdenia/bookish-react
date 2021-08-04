@@ -12,6 +12,7 @@ function BookDetail({ book }) {
 // Better to keep this separate from rendering
 // as a pure computing function, for better testability.
 const getDescriptionFor = (book) => {
+  // If book has no description, return name instead.
   return book.description ? book.description : book.name
 }
 
