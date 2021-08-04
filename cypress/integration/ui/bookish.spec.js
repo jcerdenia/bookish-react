@@ -1,35 +1,6 @@
 import axios from 'axios';
 
 describe('Bookish application', () => {
-  // Setup and teardown:
-  // Before all of the tests run, send a DELETE request to the db.
-  // Then before each test is ran, insert two books into the stub server
-  // with a POST request.
-  // Finally, after each test, clean up.
-  const cleanup = () => {
-    return axios
-      .delete('http://localhost:8080/books?_cleanup=true')
-      .catch((err) => err);
-  }
-
-  before(cleanup);
-
-  beforeEach(() => {
-    const books = [
-      { 'name': 'Refactoring', 'id': 1 },
-      { 'name': 'Domain-driven design', 'id': 2 },
-      { 'name': 'Building Microservices', 'id': 3 }
-    ]
-
-    return books.map((item) => {
-      axios.post('http://localhost:8080/books', item, {
-        headers: { 'Content-Type': 'application/json' }
-      });
-    });
-  });
-
-  afterEach(cleanup);
-
   // Test if there is a heading element on the page, and the content is Bookish.
   it('visits the bookish', () => {
     cy.visit('http://localhost:3000/');
@@ -45,9 +16,14 @@ describe('Bookish application', () => {
     cy.get('div[data-test="book-list"]').should('exist');
     // Each book item should have the given titles specified in h2 tags.
     cy.get('div.book-item').should((books) => {
-      expect(books).to.have.length(3);
+      expect(books).to.have.length(4);
       const titles = [...books].map((x) => x.querySelector('h2').innerHTML);
-      expect(titles).to.deep.equal(['Refactoring', 'Domain-driven design', 'Building Microservices']);
+      expect(titles).to.deep.equal([
+        'Refactoring', 
+        'Domain-driven design', 
+        'Building Microservices', 
+        'Acceptance Test Driven Development with React'
+      ]);
     });
   });
 
