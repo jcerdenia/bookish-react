@@ -2,7 +2,7 @@ import React from 'react';
 import { Button, Card, CardActionArea, CardActions, CardContent, Grid, Typography, makeStyles } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 
-function BookList({ books, loading, error }) {
+const BookList = ({ books, loading, error }) => {
   const classes = useStyles(); // generate class names that can be used as className
 
   if (loading) {

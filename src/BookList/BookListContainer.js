@@ -3,7 +3,7 @@ import BookList from './BookList';
 import { useRemoteService } from '../hooks';
 import { TextField } from '@material-ui/core';
 
-function BookListContainer() {
+const BookListContainer = () => {
   // Load book list:
   const [term, setTerm] = useState('');
   const { data, loading, error, setUrl } = useRemoteService('http://localhost:8080/books', []);
