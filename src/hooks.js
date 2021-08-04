@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 
-export const useRemoteService = (url, initialData) => {
+export const useRemoteService = (initialUrl, initialData) => {
   const [data, setData] = useState(initialData);
+  const [url, setUrl] = useState(initialUrl);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
 
@@ -24,5 +25,8 @@ export const useRemoteService = (url, initialData) => {
     fetchBooks();
   }, [url]);
 
-  return { data, loading, error };
+  return { data, loading, error, setUrl };
+  // By exporting setUrl, we give the outside world a chance to change the url.
+  // Note: setUrl is a function.
+  // Fetching will be triggered with [url] as a dependency for the fetchBooks effect.
 }
