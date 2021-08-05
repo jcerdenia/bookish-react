@@ -13,6 +13,8 @@ const BookList = ({ books, loading, error }) => {
     return <p>Error...</p>
   }
 
+  if (books === undefined) books = [];
+
   return (
     <div data-test='book-list' className={classes.root}>
       <Grid container spacing={3}>

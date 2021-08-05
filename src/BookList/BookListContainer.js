@@ -1,23 +1,29 @@
 import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import * as actions from '../redux/actions/actions'
 import BookList from './BookList';
-import { useRemoteService } from '../hooks';
 import SearchBox from './SearchBox';
+import bookListSelector from '../redux/selectors/selector';
 
 const BookListContainer = () => {
-  // Load book list:
+  const dispatch = useDispatch();
   const [term, setTerm] = useState('');
-  const { data, loading, error, setUrl } = useRemoteService('http://localhost:8080/books', []);
-  const onSearch = (event) => setTerm(event.target.value);
+  const { books, loading, error } = useSelector(bookListSelector);
 
-  // Trigger when term is changed:
+  const onSearch = (event) => {
+    dispatch(actions.setSearchTerm(event.target.value));
+    dispatch(actions.fetchBooks());
+  };
+
+  // Trigger when term or dispatch are changed:
   useEffect(() => {
-    setUrl(`http://localhost:8080/books?q=${term}`)
-  }, [term]);
+    dispatch(actions.fetchBooks(term));
+  }, [term, dispatch]);
 
   return (
     <>
       <SearchBox term={term} onSearch={onSearch} />
-      <BookList books={data} loading={loading} error={error} />
+      <BookList books={books} loading={loading} error={error} />
     </>
   );
 }

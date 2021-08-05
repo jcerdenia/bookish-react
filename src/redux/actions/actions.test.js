@@ -61,7 +61,6 @@ describe('BookListContainer related actions', () => {
       .dispatch(fetchBooks())
       .then(() => {
         const state = store.getState();
-        console.log(state);
         expect(state.term).toEqual('domain');
         expect(axios.get).toHaveBeenCalledWith('http://localhost:8080/books?q=domain');
       });
