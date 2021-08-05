@@ -1,3 +1,30 @@
+describe('Bookish application', () => {
+  beforeEach(() => goToApp());
+
+  // Test if there is a heading element on the page, and the content is Bookish.
+  it('visits the bookish page', () => checkAppTitle());
+
+  // Acceptance test for Book List.
+  // Make sure the page contains a list of books.
+  // Doesn't matter how it's implemented, as long as the list is there.
+  it('Shows a book list', () => checkBookListWith([
+    'Refactoring',
+    'Domain-driven design',
+    'Building Microservices',
+    'Acceptance Test Driven Development with React'
+  ]));
+
+  // Acceptance test for Book Detail view.
+  // Clicking on a book from the book list should take the user to a different page.
+  // The page should contain content specific to each book (title, image, description, etc.)
+  it('Goes to the detail page', () => checkBookDetailWith('Refactoring', 1));
+
+  // Acceptance test for searching books by keyword.
+  // Try to type the keyword 'design' into the search input box and
+  // expect that only 'Domain-driven design' will show up in the book list.
+  it('searches for a title', () => checkSearch());
+});
+
 const goToApp = () => cy.visit('http://localhost:3000/');
 
 const checkAppTitle = () => cy.get('h2[data-test="heading"]').contains('Bookish');
@@ -25,30 +52,3 @@ const checkSearch = () => {
   cy.get('div.book-item').should('have.length', 1); // number of expected results
   cy.get('div.book-item').eq(0).contains('Domain-driven design'); // expected result
 }
-
-describe('Bookish application', () => {
-  beforeEach(() => goToApp());
-
-  // Test if there is a heading element on the page, and the content is Bookish.
-  it('visits the bookish page', () => checkAppTitle());
-
-  // Acceptance test for Book List.
-  // Make sure the page contains a list of books.
-  // Doesn't matter how it's implemented, as long as the list is there.
-  it('Shows a book list', () => checkBookListWith([
-    'Refactoring',
-    'Domain-driven design',
-    'Building Microservices',
-    'Acceptance Test Driven Development with React'
-  ]));
-
-  // Acceptance test for Book Detail view.
-  // Clicking on a book from the book list should take the user to a different page.
-  // The page should contain content specific to each book (title, image, description, etc.)
-  it('Goes to the detail page', () => checkBookDetailWith('Refactoring', 1));
-
-  // Acceptance test for searching books by keyword.
-  // Try to type the keyword 'design' into the search input box and
-  // expect that only 'Domain-driven design' will show up in the book list.
-  it('searches for a title', () => checkSearch());
-});
