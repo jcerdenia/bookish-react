@@ -34,7 +34,7 @@ describe('BookListContainer related actions', () => {
 
     const store = mockStore({ books: [] });
     return store
-      .dispatch(fetchBooks(''))
+      .dispatch(fetchBooks())
       .then(() => expect(store.getActions()).toEqual(expectedActions));
   });
 
@@ -48,20 +48,22 @@ describe('BookListContainer related actions', () => {
 
     const store = mockStore({ books: [] });
     return store
-      .dispatch(fetchBooks(''))
+      .dispatch(fetchBooks())
       .then(() => expect(store.getActions()).toEqual(expectedActions));
   });
 
-  it('searches data with term', () => {
-    const books = [
-      { id: 1, name: 'Refactoring' },
-      { id: 2, name: 'Domain-driven design' }
-    ];
+  it('performs a search', () => {
+    axios.get = jest.fn().mockImplementation(() => Promise.resolve());
+    // Fetch data from store:
+    const store = mockStore({ books: [] , term: 'domain' });
 
-    axios.get = jest.fn().mockImplementation(() => Promise.resolve({ data: books }));
-    const store = mockStore({ books: [] });
     return store
-      .dispatch(fetchBooks('domain'))
-      .then(() => expect(axios.get).toHaveBeenCalledWith('http://localhost:8080/books?q=domain'));
+      .dispatch(fetchBooks())
+      .then(() => {
+        const state = store.getState();
+        console.log(state);
+        expect(state.term).toEqual('domain');
+        expect(axios.get).toHaveBeenCalledWith('http://localhost:8080/books?q=domain');
+      });
   })
 });
