@@ -13,10 +13,8 @@ describe('SearchBox', () => {
     expect(props.onSearch).toHaveBeenCalled();
   });
 
-  // Test if empty query does not get searched.
-  // Given in the book, but commented out because I don't like it.
-  /*
-  it('ignores empty strings', () => {
+  // Test if blank query does not get searched.
+  it('ignores white space', () => {
     const props = { term: '', onSearch: jest.fn() }
     const { container } = render(<SearchBox {...props} />);
     const input = container.querySelector('input[type="text"]');
@@ -24,5 +22,4 @@ describe('SearchBox', () => {
     userEvent.type(input, '  ');
     expect(props.onSearch).not.toHaveBeenCalled();
   })
-  */
 });
