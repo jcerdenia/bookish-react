@@ -27,7 +27,8 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "e2e": "cypress run",
-    "stub-server": "npx json-server --watch ./stub-server/books.json --port 8080"
+    "stub-server": "npx json-server --watch ./stub-server/books.json --port 8080",
+    "test:coverage": "CI=true npm test -- --env=jsdom --coverage"
   },
   "eslintConfig": {
     "extends": [

@@ -20,7 +20,7 @@ const BookListContainer = () => {
   useEffect(() => {
     dispatch(actions.setSearchTerm(term));
     dispatch(actions.fetchBooks());
-  }, [term]);
+  }, [term, dispatch]);
 
   return (
     <>
