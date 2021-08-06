@@ -1,6 +1,9 @@
 import React from 'react';
 
 const BookDetail = ({ book }) => {
+  // prevent component from attempting to render with undefined values:
+  if (book === undefined) book = { name: '', description: '', id: 0 };
+
   return (
     <div className='detail'>
       <h2 className='book-title'>{book.name}</h2>

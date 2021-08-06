@@ -23,7 +23,7 @@ export const fetchBooks = () => {
 
 export const fetchBook = (id) => {
   return (dispatch) => {
-    dispatch({ type: types.FETCH_BOOK_PENDING })
+    dispatch({ type: types.FETCH_BOOK_PENDING });
     
     return axios
       .get(`http://localhost:8080/books/${id}`)

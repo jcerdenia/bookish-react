@@ -9,8 +9,6 @@ import { fetchBook } from '../redux/actions/actions';
 import { toBeInTheDocument } from '@testing-library/jest-dom';
 import store from '../store';
 
-const mockStore = configureMockStore();
-
 describe('BookDetailContainer', () => {
   it('renders', async () => {
     const props = { match: { params: { id: 2 }}}

@@ -3,6 +3,7 @@ import { Button, Card, CardActionArea, CardActions, CardContent, Grid, Typograph
 import { Link } from 'react-router-dom';
 
 const BookList = ({ books, loading, error }) => {
+  if (books === undefined) books = []; // otherwise component will not render undefined values
   const classes = useStyles(); // generate class names that can be used as className
 
   if (loading) {
@@ -12,8 +13,6 @@ const BookList = ({ books, loading, error }) => {
   if (error) {
     return <p>Error...</p>
   }
-
-  if (books === undefined) books = [];
 
   return (
     <div data-test='book-list' className={classes.root}>

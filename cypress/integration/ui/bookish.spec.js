@@ -47,7 +47,7 @@ const checkBookDetailWith = (name, id) => {
 }
 
 const checkSearch = () => {
-  //cy.get('div.book-item').should('have.length', 4); // initial list length
+  cy.get('div.book-item').should('have.length', 4); // initial list length
   cy.get('[data-test="search"] input').type('design'); // search term
   cy.get('div.book-item').should('have.length', 1); // number of expected results
   cy.get('div.book-item').eq(0).contains('Domain-driven design'); // expected result

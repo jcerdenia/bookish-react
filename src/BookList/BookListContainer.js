@@ -3,20 +3,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import * as actions from '../redux/actions/actions'
 import BookList from './BookList';
 import SearchBox from './SearchBox';
-import bookListSelector from '../redux/selectors/selector';
+import { bookListSelector } from '../redux/selectors/selector';
 
 const BookListContainer = () => {
   const dispatch = useDispatch();
   const [term, setTerm] = useState('');
   const { books, loading, error } = useSelector(bookListSelector);
+  const onSearch = (event) => setTerm(event.target.value);
 
-  const onSearch = (event) => {
-    setTerm(event.target.value)
-    //dispatch(actions.setSearchTerm(event.target.value));
-    //dispatch(actions.fetchBooks());
-  };
-
-  // Trigger when term or dispatch are changed:
   useEffect(() => {
     dispatch(actions.setSearchTerm(term));
     dispatch(actions.fetchBooks());
