@@ -17,4 +17,14 @@ describe('Store', () => {
         expect(state.books).toEqual(books);
       });
   });
+
+  it('Fetch one book from remote', () => {
+    axios.get = jest.fn().mockImplementation(() => Promise.resolve({ data: books[0] }));
+    return store
+      .dispatch(actions.fetchBook(1))
+      .then(() => {
+        const state = store.getState();
+        expect(state.book).toEqual(books[0])
+      })
+  });
 });

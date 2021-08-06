@@ -11,14 +11,16 @@ const BookListContainer = () => {
   const { books, loading, error } = useSelector(bookListSelector);
 
   const onSearch = (event) => {
-    dispatch(actions.setSearchTerm(event.target.value));
-    dispatch(actions.fetchBooks());
+    setTerm(event.target.value)
+    //dispatch(actions.setSearchTerm(event.target.value));
+    //dispatch(actions.fetchBooks());
   };
 
   // Trigger when term or dispatch are changed:
   useEffect(() => {
-    dispatch(actions.fetchBooks(term));
-  }, [term, dispatch]);
+    dispatch(actions.setSearchTerm(term));
+    dispatch(actions.fetchBooks());
+  }, [term]);
 
   return (
     <>
