@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import ReviewList from '../ReviewList/ReviewList';
 import { TextField, Button } from '@material-ui/core';
+import { saveReview } from '../redux/actions/actions';
+import { useDispatch } from 'react-redux';
 
 const BookDetail = ({ book }) => {
   // prevent component from attempting to render with undefined values:
@@ -8,6 +10,7 @@ const BookDetail = ({ book }) => {
 
   const [name, setName] = useState('');
   const [content, setContent] = useState('');
+  const dispatch = useDispatch();
 
   return (
     <div className='detail'>
@@ -31,7 +34,14 @@ const BookDetail = ({ book }) => {
           maxRows='4' 
           value={content} 
         />
-        <Button variant='contained' color='primary' name='submit'>Submit</Button>
+        <Button 
+          variant='contained' 
+          color='primary' 
+          name='submit'
+          onClick={() => dispatch(saveReview(book.id, { name, content }))}
+          >
+          Submit
+        </Button>
       </form>
 
       {book.reviews && <ReviewList reviews={book.reviews} />}
