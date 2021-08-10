@@ -1,6 +1,7 @@
 import React from 'react';
 import { render } from '@testing-library/react';
 import BookDetail from './BookDetail'
+import toBeInTheDocument from '@testing-library/jest-dom';
 
 describe('Book Detail', () => {
   it('renders title', () => {
@@ -46,4 +47,22 @@ describe('Book Detail', () => {
     expect(title.innerHTML).toEqual('The book about how to do refactoring ....');
   });
   */
+
+  it('renders review form', () => {
+    const props = { book: { 
+      name: 'Refactoring',
+      description: "Martin Fowler's Refactoring defined core ideas and techniques that hundreds of thousands of developers have used to improve their software."
+    }}
+
+    const { container } = render(<BookDetail {...props} />);
+    const form = container.querySelector('form');
+    const nameInput = container.querySelector('input[name="name"]');
+    const contentTextArea = container.querySelector('textarea[name="content"]');
+    const submitButton = container.querySelector('button[name="submit"]');
+
+    expect(form).toBeInTheDocument();
+    expect(nameInput).toBeInTheDocument();
+    expect(contentTextArea).toBeInTheDocument();
+    expect(submitButton).toBeInTheDocument();
+  });
 });
