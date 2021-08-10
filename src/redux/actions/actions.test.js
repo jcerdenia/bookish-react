@@ -1,7 +1,7 @@
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import axios from 'axios';
-import { setSearchTerm, fetchBooks } from './actions';
+import * as actions from './actions';
 import * as types from '../types';
 
 const middleware = [thunk];
@@ -13,7 +13,7 @@ describe('BookListContainer related actions', () => {
   it('sets the search keyword', () => {
     const term = '';
     const expected = { type: types.SET_SEARCH_TERM, term }
-    const action = setSearchTerm(term);
+    const action = actions.setSearchTerm(term);
     expect(action).toEqual(expected);
   });
 
@@ -34,7 +34,7 @@ describe('BookListContainer related actions', () => {
 
     const store = mockStore({ books: [] });
     return store
-      .dispatch(fetchBooks())
+      .dispatch(actions.fetchBooks())
       .then(() => expect(store.getActions()).toEqual(expectedActions));
   });
 
@@ -48,7 +48,7 @@ describe('BookListContainer related actions', () => {
 
     const store = mockStore({ books: [] });
     return store
-      .dispatch(fetchBooks())
+      .dispatch(actions.fetchBooks())
       .then(() => expect(store.getActions()).toEqual(expectedActions));
   });
 
@@ -58,11 +58,23 @@ describe('BookListContainer related actions', () => {
     const store = mockStore({ books: [] , term: 'domain' });
 
     return store
-      .dispatch(fetchBooks())
+      .dispatch(actions.fetchBooks())
       .then(() => {
         const state = store.getState();
         expect(state.term).toEqual('domain');
         expect(axios.get).toHaveBeenCalledWith('http://localhost:8080/books?q=domain');
       });
-  })
+  });
+
+  it('saves a review for a book', () => {
+    const review = { name: 'Vladimir Lossky', content: 'Excellent work!' }
+    axios.post = jest.fn().mockImplementation(() => Promise.resolve({}));
+    const store = mockStore({ books: [], term: '' });
+    // When we POST some data to the endpoint, a new review will be created for book with id 1
+    return store
+      .dispatch(actions.saveReview(1, review))
+      .then(() => {
+        expect(axios.post).toHaveBeenCalledWith('http://localhost:8080/books/1', review);
+      });
+  });
 });

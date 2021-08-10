@@ -23,6 +23,18 @@ describe('Bookish application', () => {
   // Try to type the keyword 'design' into the search input box and
   // expect that only 'Domain-driven design' will show up in the book list.
   it('searches for a title', () => checkSearch());
+
+  // ReviewList test. Go to detail page, find the input fields, fill out, click submit.
+  // Expect submitted content to display on the page.
+  it('Write a review for a book', () => {
+    goToNthBookInTheList(0);
+    checkBookDetail('Refactoring');
+
+    cy.get('input[name="name"]').type('Vladimir Lossky'); // input on name field
+    cy.get('textarea[name="content"]').type('Excellent work!'); // input on content field
+    cy.get('button[name="submit"]').click(); // click submit
+    cy.get('div[data-test="reviews-container"] .review').should('have.length', 1); // data should appear
+  });
 });
 
 const goToApp = () => cy.visit('http://localhost:3000/');
